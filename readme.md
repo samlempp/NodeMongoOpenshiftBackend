@@ -6,14 +6,15 @@ you will have CRUD endpoints on collections within MongoDB
 1. Connected to campus VPN
 2. Github Account
 3. Sign up for [Carolina Cloud Apps](https://cloudapps.unc.edu/) | This step will only take a second
+4. Fork this repo to your github account
 
 ## Create a MongoDB database
 1. Head to the Topology Tab under the Developer View
 2. Select Database from the tiles that appear
 3. Select MongoDB from the tiles that appear and hit instanitate template on the modal that opens
-4. Accept all default values in the form, for the purpose of this demonstration you can use email and password settings as follows. Please make sure you remember or note these values as you will need them later ![Database Config](resources/dbConfig.png)
+4. Accept all default values in the form, for the purpose of this demonstration you can use email and password settings as follows. Please make sure you remember or note these values as you will need them later\ ![Database Config](resources/dbConfig.png)
 5. Hit create
-6. Once the status of the pod shows up as active, head to the resrouce tab, and then hit view logs on the pod, followed by the terminal tab ![View Logs](resources/viewLogs.png)
+6. Once the status of the pod shows up as active, head to the resrouce tab, and then hit view logs on the pod, followed by the terminal tab\ ![View Logs](resources/viewLogs.png)
 7. In the terminal type the follow command
 ```
 mongo -u "admin" -p "Admin123" admin
@@ -30,7 +31,22 @@ For more comprehensive documentation, see
 Questions? Try the support group
         http://groups.google.com/group/mongodb-user
 ```
-9. Go back to the topology and click the mongodb pod, from there hit the mongodb service
+9. Go back to the topology and click the mongodb pod, from there hit the mongodb service\
 ![Database Service](resources/service.png)
-10. Note the IP of the cluster, and update the IP address of the database connection in this repo under config/database.config.js
+10. Note the IP of the cluster, and update the IP address of the database connection in this repo under config/database.config.js\
 ![IP Address](resources/ip.png)
+
+## Deploy the ExpressJS app
+1. Head to the Topology tab under the Developer view
+2. Right click anywhere and select add to project from catalog
+3. Search nodeJS and hit the first tile and hit create application
+4. Provide the Github repo link of your forked repo, this repo should contain the updated IP of your mongodb database\
+![Node Config](resources/nodeconfig.png)
+5. Hit Create, click on the newly created pod, and wait for the build to finish
+6. Visit the endpoint, by clicking the link on the pod\
+![Link](resources/arrow.png)
+7. if you have followed all steps correctly you should see the following output in the browser
+```
+{"welcome":"This is a backend starter api based on an express api connected to mongodb, on the OpenShift container platform"}
+```
+8. Congratulations your API is now live, modify the routes and model for your use case. Default crud implementations have been provided under app/controllers
