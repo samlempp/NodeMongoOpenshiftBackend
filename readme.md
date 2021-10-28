@@ -76,3 +76,9 @@ connections locally
 ```
 oc port-forward mongodb-1-XXXXX 34000:27017
 ```
+4. Enable SSL, ssl can be enabled in Adminstrator view by going to Networking, Routes, name of your node application, and adding this tls argument to your YAML configuration under the spec section
+```
+tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: None
+```
