@@ -1,5 +1,5 @@
 module.exports = (app) => {
-    const resumes = require('../controllers/template.controller.js');
+    const templates = require('../controllers/template.controller.js');
 
     // Create a new Resume
     app.post('/templates', templates.create);
