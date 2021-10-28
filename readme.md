@@ -12,9 +12,11 @@ you will have CRUD endpoints on collections within MongoDB
 1. Head to the Topology Tab under the Developer View
 2. Select Database from the tiles that appear
 3. Select MongoDB from the tiles that appear and hit instanitate template on the modal that opens
-4. Accept all default values in the form, for the purpose of this demonstration you can use email and password settings as follows. Please make sure you remember or note these values as you will need them later\ ![Database Config](resources/dbConfig.png)
+4. Accept all default values in the form, for the purpose of this demonstration you can use email and password settings as follows. Please make sure you remember or note these values as you will need them later\ 
+![Database Config](resources/dbConfig.png)
 5. Hit create
-6. Once the status of the pod shows up as active, head to the resrouce tab, and then hit view logs on the pod, followed by the terminal tab\ ![View Logs](resources/viewLogs.png)
+6. Once the status of the pod shows up as active, head to the resrouce tab, and then hit view logs on the pod, followed by the terminal tab\ 
+![View Logs](resources/viewLogs.png)
 7. In the terminal type the follow command
 ```
 mongo -u "admin" -p "Admin123" admin
@@ -50,3 +52,27 @@ Questions? Try the support group
 {"welcome":"This is a backend starter api based on an express api connected to mongodb, on the OpenShift container platform"}
 ```
 8. Congratulations your API is now live, modify the routes and model for your use case. Default crud implementations have been provided under app/controllers
+
+## Additional Tools and Tips
+1. Download [MongoDB Compass](https://www.mongodb.com/try/download/compass), use this to remotely connect to the DB. You can use the same connection string as in the database config
+2. Download the [OpenShift CLI](https://docs.openshift.com/container-platform/4.2/cli_reference/openshift_cli/getting-started-cli.html), can be used to emulate pods and route ports for local testing
+3. Heres how to remotely connect to MongoDB over localhost\
+```
+oc get pods
+```
+This will return output like\
+```
+NAME                     READY     STATUS       RESTARTS   AGE
+mongodb-1-XXXXX          1/1       Running      0          12h
+my-node-app-10-build     0/1       Completed    0          10h
+```
+Grab the pod name from the output. From here you can remote sh using the following command \
+```
+oc rsh mongodb-1-XXXXX
+```
+To connect to mongodb via local host setup port forward, this will allow you to send traffic to mongodb
+over localhost:34000. You can also replace the ip in the database config with localhost:34000 to test 
+connections locally
+```
+oc port-forward mongodb-1-XXXXX 34000:27017
+```
