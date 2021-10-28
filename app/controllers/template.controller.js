@@ -91,7 +91,7 @@ exports.update = (req, res) => {
     }
     // Find Template and update it with the request body
     Template.findByIdAndUpdate(req.params.templateId, {
-        approved: req.body.approved
+        message: req.body.message
     })
     .then(template => {
         if(!template) {
