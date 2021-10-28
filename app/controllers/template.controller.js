@@ -58,3 +58,56 @@ exports.findOne = (req, res) => {
         });
     });
 };
+
+// Delete a template with the specified templateId in the request
+exports.delete = (req, res) => {
+    Template.findByIdAndRemove(req.params.templateId)
+    .then(template => {
+        if(!template) {
+            return res.status(404).send({
+                message: "Template not found with id " + req.params.templateId
+            });
+        }
+        res.send({message: "Template deleted successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "Template not found with id " + req.params.templateId
+            });                
+        }
+        return res.status(500).send({
+            message: "Could not delete Template with id " + req.params.templateId
+        });
+    });
+};
+
+// Update a Template identified by the templateId in the request
+exports.update = (req, res) => {
+    // Validate Request
+    if(!req.body.message) {
+        return res.status(400).send({
+            message: "Template approved/pending can not be empty"
+        });
+    }
+    // Find Template and update it with the request body
+    Template.findByIdAndUpdate(req.params.templateId, {
+        approved: req.body.approved
+    })
+    .then(template => {
+        if(!template) {
+            return res.status(404).send({
+                message: "Template not found with id " + req.params.templateId
+            });
+        }
+        res.send(template);
+    }).catch(err => {
+        if(err.kind === 'ObjectId') {
+            return res.status(404).send({
+                message: "Template not found with id " + req.params.templateId
+            });                
+        }
+        return res.status(500).send({
+            message: "Error updating Template with id " + req.params.templateId,
+        });
+    });
+};
