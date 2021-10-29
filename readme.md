@@ -1,27 +1,27 @@
 # Deploy an ExpressJS/MongoDB Api on OpenShift
-This repo contians starter code to deploy a nodeJS ExpressJS API on Openshit. If followed correctly
+This repo contains starter code to deploy a nodeJS ExpressJS API on OpenShit. If followed correctly
 you will have CRUD endpoints on collections within MongoDB
 
 ## Pre reqs
 1. Connected to campus VPN
-2. Github Account
+2. Github Account, you can use GitHub's code editor to change the MongoDB IP address later on
 3. Sign up for [Carolina Cloud Apps](https://cloudapps.unc.edu/) | This step will only take a second
 4. Fork this repo to your github account
 
 ## Create a MongoDB database
 1. Head to the Topology Tab under the Developer View
 2. Select Database from the tiles that appear
-3. Select MongoDB from the tiles that appear and hit instanitate template on the modal that opens
+3. Select MongoDB from the tiles that appear and hit instantiate template on the modal that opens
 4. Accept all default values in the form, for the purpose of this demonstration you can use email and password settings as follows. Please make sure you remember or note these values as you will need them later\
 ![Database Config](resources/dbConfig.png)
 5. Hit create
-6. Once the status of the pod shows up as active, head to the resrouce tab, and then hit view logs on the pod, followed by the terminal tab\
+6. Once the status of the pod shows up as active, head to the resource tab, and then hit view logs on the pod, followed by the terminal tab\
 ![View Logs](resources/viewLogs.png)
-7. In the terminal type the follow command
+7. In the terminal type the following command
 ```
 mongo -u "admin" -p "Admin123" admin
 ```
-8. If connection is successful you should see this in the terminal
+8. If the connection is successful you should see this in the terminal
 ```
 MongoDB shell version v3.6.3
 connecting to: mongodb://127.0.0.1:27017/admin
@@ -51,7 +51,7 @@ Questions? Try the support group
 ```
 {"welcome":"This is a backend starter api based on an express api connected to mongodb, on the OpenShift container platform"}
 ```
-8. Congratulations your API is now live, modify the routes and model for your use case. Default crud implementations have been provided under app/controllers
+8. Congratulations your API is now live, modify the routes and model for your use case. Default CRUD implementations have been provided under app/controllers and you can play around with them in Postman.
 
 ## Additional Tools and Tips
 1. Download [MongoDB Compass](https://www.mongodb.com/try/download/compass), use this to remotely connect to the DB. You can use the same connection string as in the database config
@@ -66,17 +66,17 @@ NAME                     READY     STATUS       RESTARTS   AGE
 mongodb-1-XXXXX          1/1       Running      0          12h
 my-node-app-10-build     0/1       Completed    0          10h
 ```
-Grab the pod name from the output. From here you can remote sh using the following command 
+Grab the mongodb pod name from the output. From here you can remote sh using the following command 
 ```
 oc rsh mongodb-1-XXXXX
 ```
-To connect to mongodb via local host setup port forward, this will allow you to send traffic to mongodb
+To connect to mongodb via local host setup port forwarding, this will allow you to send traffic to mongodb
 over localhost:34000. You can also replace the ip in the database config with localhost:34000 to test 
 connections locally
 ```
 oc port-forward mongodb-1-XXXXX 34000:27017
 ```
-4. Enable SSL, ssl can be enabled in Adminstrator view by going to Networking, Routes, name of your node application, and adding this tls argument to your YAML configuration under the spec section
+4. Enable SSL, ssl can be enabled in Administrator view by going to Networking, Routes, name of your node application, and adding this tls argument to your YAML configuration under the spec section
 ```
 tls:
     termination: edge
